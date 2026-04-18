@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", monospace;
+  --font-mono: "VT323", monospace;
+  --color-dark-bg: #050505;
+  --color-surface: #111111;
+  --color-text-main: #e0e0e0;
+  --color-text-dim: #777777;
+  --color-neon-cyan: #00ffff;
+  --color-neon-magenta: #ff00ff;
+  --color-neon-green: #39ff14;
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-main);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'VT323', monospace;
+  text-transform: uppercase;
+}
+
+@layer utilities {
+  .text-neon-cyan {
+    color: var(--color-neon-cyan);
+    text-shadow: 2px 0px 0px var(--color-neon-magenta);
+  }
+  .text-neon-magenta {
+    color: var(--color-neon-magenta);
+    text-shadow: -2px 0px 0px var(--color-neon-cyan);
+  }
+  .shadow-neon-magenta {
+    box-shadow: 0 0 10px var(--color-neon-magenta);
+  }
+  .shadow-neon-cyan {
+    box-shadow: 0 0 10px var(--color-neon-cyan);
+  }
+  .border-neon-cyan {
+    border-color: var(--color-neon-cyan);
+  }
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.glitch-text::before {
+  color: var(--color-neon-cyan);
+  z-index: -1;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  color: var(--color-neon-magenta);
+  z-index: -2;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -2px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 1px); }
+}
+
+.static-noise {
+  pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  opacity: 0.15;
+  mix-blend-mode: color-dodge;
+  animation: noise-shift 0.2s infinite steps(2);
+}
+
+@keyframes noise-shift {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.25) 51%
+  );
+  background-size: 100% 4px;
+}

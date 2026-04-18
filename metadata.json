@@ -1,0 +1,6 @@
+{
+  "name": "Neon Snake Game & Music Player",
+  "description": "A dark neon stylized Snake game combined with a background AI-generated music player.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
